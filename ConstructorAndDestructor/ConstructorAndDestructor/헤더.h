@@ -11,16 +11,24 @@ int number_counter = 1;
 class Employee {
 public:
 	int no;
-	char name[100];
+	char* name;
 	int gender;
-	char rank[100];
+	char* rank;
 
 	Employee(char* name, int gender, char* rank){ // 생성자
+		this->name = new char[strlen(name) + 1]; // 널문자까지
+		this->rank = new char[strlen(rank) + 1];
 		strcpy(this->name, name);
 		this->gender = gender;
 		strcpy(this->rank, rank);
 		this->no = number_counter;
 		number_counter++;
+	}
+
+	~Employee() { // 소멸자
+		delete[] name;
+		delete[] rank;
+		printf("%d번 사원이 삭제되었습니다.\n", no);
 	}
 
 	void printInfo() {
